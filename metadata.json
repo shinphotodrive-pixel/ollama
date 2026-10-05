@@ -1,0 +1,6 @@
+{
+  "name": "Ollama 아키텍처 & 로컬 LLM 운영 대시보드",
+  "description": "로컬 LLM 추론 메커니즘, GGUF 양자화 최적화, VRAM 계산기, 에이전트 연동, RAG 파이프라인 및 보안(CVE)·라이선스 진단 대시보드",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
