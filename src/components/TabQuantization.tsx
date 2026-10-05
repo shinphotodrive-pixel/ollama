@@ -18,11 +18,13 @@ import {
   FileJson,
   Share2,
   Copy,
+  Zap,
 } from 'lucide-react';
 import { VRAMChartJS } from './VRAMChartJS';
 import { VRAMLiveChart } from './VRAMLiveChart';
 import { VRAMScenarioSidebar } from './VRAMScenarioSidebar';
 import { VRAMShareModal } from './VRAMShareModal';
+import { VRAMPowerCostSimulator } from './VRAMPowerCostSimulator';
 
 export const TabQuantization: React.FC = () => {
   // Calculator inputs
@@ -32,7 +34,7 @@ export const TabQuantization: React.FC = () => {
   const [contextWindow, setContextWindow] = useState<number>(32768);
   const [kvPrecision, setKvPrecision] = useState<number>(8); // q8_0 default recommended
   const [batchSize, setBatchSize] = useState<number>(1);
-  const [rightPanelTab, setRightPanelTab] = useState<'chart' | 'scenario' | 'hardware'>('chart');
+  const [rightPanelTab, setRightPanelTab] = useState<'chart' | 'power_cost' | 'scenario' | 'hardware'>('chart');
   const [saveSuccessMsg, setSaveSuccessMsg] = useState<string | null>(null);
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
 
@@ -540,6 +542,17 @@ export const TabQuantization: React.FC = () => {
                 <span>Chart.js 실시간 막대 차트</span>
               </button>
               <button
+                onClick={() => setRightPanelTab('power_cost')}
+                className={`flex items-center gap-1.5 px-3 py-1 font-semibold rounded-md transition-colors whitespace-nowrap ${
+                  rightPanelTab === 'power_cost'
+                    ? 'bg-white text-slate-900 shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                <Zap className="w-3.5 h-3.5 text-amber-500" />
+                <span>전력 &amp; TCO 비용</span>
+              </button>
+              <button
                 onClick={() => setRightPanelTab('scenario')}
                 className={`flex items-center gap-1.5 px-3 py-1 font-semibold rounded-md transition-colors whitespace-nowrap ${
                   rightPanelTab === 'scenario'
@@ -573,6 +586,15 @@ export const TabQuantization: React.FC = () => {
               kvPrecision={kvPrecision}
               batchSize={batchSize}
               vramResult={vramResult}
+            />
+          ) : rightPanelTab === 'power_cost' ? (
+            <VRAMPowerCostSimulator
+              modelParams={modelParams}
+              quantBits={quantBits}
+              quantName={quantName}
+              contextWindow={contextWindow}
+              totalVRAM={vramResult.totalVRAM}
+              weightsVRAM={vramResult.weightsVRAM}
             />
           ) : rightPanelTab === 'scenario' ? (
             <VRAMScenarioSidebar
@@ -809,7 +831,17 @@ export const TabQuantization: React.FC = () => {
         batchSize={batchSize}
       />
 
-      {/* 4. Interactive Quantization Comparison Chart */}
+      {/* 5. Deployment Power Draw & Hardware TCO Simulator */}
+      <VRAMPowerCostSimulator
+        modelParams={modelParams}
+        quantBits={quantBits}
+        quantName={quantName}
+        contextWindow={contextWindow}
+        totalVRAM={vramResult.totalVRAM}
+        weightsVRAM={vramResult.weightsVRAM}
+      />
+
+      {/* 6. Interactive Quantization Comparison Chart */}
       <div className="bg-white p-6 rounded-xl border border-slate-200">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-200">
           <div>

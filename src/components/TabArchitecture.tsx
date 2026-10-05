@@ -3,6 +3,8 @@ import { MODEL_PRESETS, ModelPreset } from '../utils/modelfileTemplates';
 import { Copy, Check, Download, Info, HardDrive, Cpu, AlertTriangle, ArrowRight } from 'lucide-react';
 import { GPUArchitectureComparison } from './GPUArchitectureComparison';
 import { VRAMBottleneckChecklist } from './VRAMBottleneckChecklist';
+import { PerformanceBenchmarkEstimator } from './PerformanceBenchmarkEstimator';
+import { InferenceTroubleshootingLogs } from './InferenceTroubleshootingLogs';
 
 export const TabArchitecture: React.FC = () => {
   // Preset selection
@@ -173,15 +175,21 @@ export const TabArchitecture: React.FC = () => {
       {/* 2. GPU Hardware Platform Comparison (NVIDIA CUDA vs Apple Silicon) */}
       <GPUArchitectureComparison />
 
-      {/* 3. VRAM Bottleneck Prevention Checklist */}
+      {/* 3. Hardware Performance Benchmark Estimator & Bottleneck Analyzer */}
+      <PerformanceBenchmarkEstimator />
+
+      {/* 4. VRAM Bottleneck Prevention Checklist */}
       <VRAMBottleneckChecklist />
 
-      {/* 4. Interactive Modelfile Builder */}
+      {/* 5. Local LLM Inference Troubleshooting & Failure Logs Analyzer */}
+      <InferenceTroubleshootingLogs />
+
+      {/* 6. Interactive Modelfile Builder */}
       <div className="bg-white p-6 rounded-xl border border-slate-200">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 pb-4 border-b border-slate-200">
           <div>
             <h3 className="text-base font-bold text-slate-900">
-              🛠️ 4. 엔터프라이즈 인터랙티브 Modelfile 생성기
+              🛠️ 6. 엔터프라이즈 인터랙티브 Modelfile 생성기
             </h3>
             <p className="text-xs text-slate-500 mt-0.5">
               기본 모델, 컨텍스트 크기, 템플릿 및 시스템 역할을 조합하여 즉시 배포 가능한 Modelfile을 생성합니다.

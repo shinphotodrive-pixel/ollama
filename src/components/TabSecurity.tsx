@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { CVE_DATABASE, CVEDetail } from '../utils/modelfileTemplates';
 import { SecurityCheckItem } from '../types';
 import { ShieldAlert, CheckCircle2, AlertTriangle, XCircle, Scale, ShieldCheck, Cpu, ExternalLink } from 'lucide-react';
+import { CVEDiagnosisSimulator } from './CVEDiagnosisSimulator';
 
 const INITIAL_CHECKLIST: SecurityCheckItem[] = [
   {
@@ -210,7 +211,10 @@ export const TabSecurity: React.FC = () => {
         </div>
       </div>
 
-      {/* 3. CVE Vulnerability Deep Dive Matrix */}
+      {/* 3. Simulated Local Ollama CVE Vulnerability Audit & Diagnosis */}
+      <CVEDiagnosisSimulator />
+
+      {/* 4. CVE Vulnerability Deep Dive Matrix */}
       <div className="bg-white p-6 rounded-xl border border-slate-200">
         <div className="pb-3 border-b border-slate-200">
           <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
